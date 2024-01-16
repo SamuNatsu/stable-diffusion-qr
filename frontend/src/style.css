@@ -1,0 +1,65 @@
+/* Tailwind CSS */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+button {
+  @apply
+    bg-blue-200
+    font-bold
+    p-4
+    rounded-xl
+    transition-colors
+    disabled:!bg-neutral-300
+    disabled:!text-neutral-500
+    hover:bg-blue-400
+    hover:text-white
+}
+
+img {
+  @apply
+    border-4
+    border-dashed
+}
+
+input[type='color']:not(:disabled) {
+  @apply cursor-pointer
+}
+
+input[type="text"] {
+  @apply
+    bg-transparent
+    border-2 border-blue-300
+    outline-none
+    p-1
+    transition-colors
+    focus:border-blue-400
+}
+
+pre {
+  @apply
+    break-all
+    font-sans
+    text-neutral-400 text-sm
+}
+
+select {
+  @apply border-2 border-blue-300
+    outline-none
+    p-1
+    transition-colors
+    focus:border-blue-400;
+}
+
+textarea {
+  @apply border-2 border-blue-300
+    h-[20vh]
+    outline-none
+    p-2
+    resize-none
+    transition-colors
+    disabled:border-neutral-300
+    disabled:text-neutral-400
+    focus:border-blue-400;
+}

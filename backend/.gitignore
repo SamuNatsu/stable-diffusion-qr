@@ -1,0 +1,9 @@
+# Node modules
+node_modules
+
+# Test files
+.env
+www
+
+# Build files
+app.min.*
