@@ -6,6 +6,7 @@ import Index from '@/views/Index.vue';
 import Info from '@/views/Info.vue';
 import Generator from '@/views/Generator.vue';
 import Prettifier from '@/views/Prettifier.vue';
+import NotFound from '@/views/404.vue';
 
 // Export router
 export const router: Router = createRouter({
@@ -26,6 +27,10 @@ export const router: Router = createRouter({
     {
       path: '/prettifier',
       component: Prettifier
+    },
+    {
+      path: '/:pathMatch(.*)',
+      component: NotFound
     }
   ]
 });

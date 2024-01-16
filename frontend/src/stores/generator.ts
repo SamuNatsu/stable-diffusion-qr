@@ -2,7 +2,6 @@
 import { createGlobalState } from '@vueuse/core';
 import { ComputedRef, Ref, computed, ref, watch, watchEffect } from 'vue';
 import qrcode from 'qrcode';
-import moment from 'moment';
 import { useInfoStore } from './info';
 
 // Export store
@@ -70,8 +69,7 @@ export const useGeneratorStore = createGlobalState(() => {
 
   // Functions
   function logOut(msg: string): void {
-    aiGenLog.value +=
-      moment().format('\\[YYYY-MM-DD HH:mm:ss\\] ') + msg + '\n';
+    aiGenLog.value += new Date().toISOString() + msg + '\n';
   }
   function logClear(): void {
     aiGenLog.value = '';

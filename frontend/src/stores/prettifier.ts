@@ -1,11 +1,12 @@
 /// Prettifier store
 import { createGlobalState } from '@vueuse/core';
 import { ComputedRef, Ref, computed, ref, watch, watchEffect } from 'vue';
-import { BrowserQRCodeReader } from '@zxing/browser';
 import qrcode from 'qrcode';
 import { useInfoStore } from './info';
-import moment from 'moment';
-import { Result, Exception } from '@zxing/library';
+import type { BrowserQRCodeReader } from '@zxing/browser';
+
+// Async module
+let QRCodeReader: typeof BrowserQRCodeReader | null = null;
 
 // Export store
 export const usePrettifierStore = createGlobalState(() => {
@@ -90,8 +91,7 @@ export const usePrettifierStore = createGlobalState(() => {
 
   // Functions
   function logOut(msg: string): void {
-    aiGenLog.value +=
-      moment().format('\\[YYYY-MM-DD HH:mm:ss\\] ') + msg + '\n';
+    aiGenLog.value += new Date().toISOString() + msg + '\n';
   }
   function logClear(): void {
     aiGenLog.value = '';
@@ -235,13 +235,26 @@ export const usePrettifierStore = createGlobalState(() => {
     qrError.value = null;
 
     const fileReader: FileReader = new FileReader();
-    fileReader.addEventListener('load', (): void => {
-      new BrowserQRCodeReader()
+    fileReader.addEventListener('load', async (): Promise<void> => {
+      // Check async module loaded
+      if (QRCodeReader === null) {
+        try {
+          const module = await import('@zxing/browser');
+          QRCodeReader = module.BrowserQRCodeReader;
+        } catch (err: unknown) {
+          console.error(err);
+          qrError.value = '二维码识别模块加载失败';
+          return;
+        }
+      }
+
+      // Recognize QR code
+      new QRCodeReader()
         .decodeFromImageUrl(fileReader.result as string)
-        .then((res: Result): void => {
+        .then((res: any): void => {
           qrData.value = res.getText();
         })
-        .catch((err: Exception): void => {
+        .catch((err: any): void => {
           qrError.value = `二维码识别失败<br>${err.getKind()}`;
         });
     });

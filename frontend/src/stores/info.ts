@@ -18,9 +18,12 @@ export const useInfoStore = createGlobalState(() => {
 
   const modelName: Ref<string> = ref('');
   const modelUrl: Ref<string | null> = ref(null);
+  const ctrlModelName: Ref<string> = ref('');
+  const ctrlModelUrl: Ref<string | null> = ref(null);
   const prependPrompt: Ref<string> = ref('');
   const prependNegativePrompt: Ref<string> = ref('');
   const sampler: Ref<string> = ref('');
+  const basicSize: Ref<number> = ref(768);
   const allowHr: Ref<boolean> = ref(false);
   const hrUpscaler: Ref<string | null> = ref(null);
 
@@ -50,9 +53,12 @@ export const useInfoStore = createGlobalState(() => {
 
         modelName.value = data.sd.MODEL_NAME;
         modelUrl.value = data.sd.MODEL_URL;
+        ctrlModelName.value = data.sd.CTRL_MODEL_NAME;
+        ctrlModelUrl.value = data.sd.CTRL_MODEL_URL;
         prependPrompt.value = data.sd.PREPEND_PROMPT;
         prependNegativePrompt.value = data.sd.PREPEND_NEGATIVE_PROMPT;
         sampler.value = data.sd.SAMPLER;
+        basicSize.value = data.sd.BASIC_SIZE;
         allowHr.value = data.sd.ALLOW_HR;
         hrUpscaler.value = data.sd.HR_UPSCALER;
 
@@ -79,9 +85,12 @@ export const useInfoStore = createGlobalState(() => {
 
     modelName,
     modelUrl,
+    ctrlModelName,
+    ctrlModelUrl,
     prependPrompt,
     prependNegativePrompt,
     sampler,
+    basicSize,
     allowHr,
     hrUpscaler,
 

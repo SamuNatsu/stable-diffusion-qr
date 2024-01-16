@@ -4,13 +4,14 @@ import { version } from './package.json';
 
 // Plugins
 import vue from '@vitejs/plugin-vue';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // Export config
 export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(version)
   },
-  plugins: [vue()],
+  plugins: [visualizer(), vue()],
   resolve: {
     alias: {
       '@': '/src/'
