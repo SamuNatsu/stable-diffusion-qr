@@ -7,7 +7,7 @@ import { loggers } from '@/utils/global.util.js';
 let { error, value } = joi
   .string()
   .label('SYS_PROVIDER_NAME')
-  .default('Stable Diffusion Share')
+  .default('Stable Diffusion QR')
   .validate(process.env.SYS_PROVIDER_NAME);
 if (error !== undefined) {
   loggers.config.fatal('Fail to parse SYS_PROVIDER_NAME', error);
